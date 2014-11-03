@@ -25,13 +25,22 @@ H.mat[i*3, 1:3] = t(dat$V3[7:9])
 library(reshape2)
 
 ## Add row and column names
-rownames(H.mat) <- rep(dpth,each=3)
+dpth_short <- sub(".*?20120912_(.*?).c.*", "\\1", dpth)
+dpth_rep <-rep(dpth_short,each=3)
+dpth_all <- vector(mode="character",length=24)
+dpth_all[seq(0,24,3)] = dpth_rep[seq(0,24,3)]
+
+rownames(H.mat) <- dpth_all
 colnames(H.mat) <- c(0,3,6)
 names(dimnames(H.mat)) <- c('Set','Depth')
 H.df<-melt(H.mat)
 
 ## Create colour palette
-my_palette <- colorRampPalette(c("white","red", "blue"))(n = 299)
+YlOrBr <- c("#FFF7FB","#FFF7FB","#FFF7FB","#FFF7FB","#FFF7FB","#FFF7FB",
+            "#FFFFD9","#41B6C3", "#1D91C0", "#225ea8", "#253494", "#081D58","#000000")
+my_palette <- colorRampPalette(YlOrBr, space = "Lab")(n = 1000)
+
+
 
 ## Plot heatmap
 library(gplots)
@@ -50,7 +59,7 @@ heatmap.2(H.mat, density.info = "none", trace = "none",
           col = colorRampPalette(brewer.pal(9, "YlGnBu"))(256), 
           scale = "row", # scale by row
           rowsep=seq(0, 24, 3), # separate rows by gear set
-          cexRow = 0.8, srtCol = 0, # rotate column labels
+          cexRow = 1, srtCol = 0, # rotate column labels
           labCol = c("0 m","3 m", "6 m"), adjCol = c(0.5,1),
           lmat = lmat, key.par=list(mar=c(3.5,0,9.5,7)),
           symkey = FALSE, symm = FALSE, # don't need symmetry in key (postive values only)
@@ -64,9 +73,9 @@ par(mar=c(0,0,0,8))
 par(oma=c(0,0,0,8))
 heatmap.2(H.mat, density.info = "none", trace = "none", 
           dendrogram = "none", Rowv = "FALSE", # don't add dendrograms, don't sort by row
-          col = colorRampPalette(brewer.pal(9, "RdBu"))(256), 
+          col = my_palette, 
           rowsep=seq(0, 24, 3), # separate rows by gear set
-          cexRow = 0.8, srtCol = 0, # rotate column labels
+          cexRow = 1, srtCol = 0, # rotate column labels
           labCol = c("0 m","3 m", "6 m"), adjCol = c(0.5,1),
           lmat = lmat, key.par=list(mar=c(3.5,0,9.5,7)),
           symkey = FALSE, symm = FALSE, # don't need symmetry in key (postive values only)

@@ -23,7 +23,9 @@ for(i in 1:length(files)){
 ## each row is a different depth, columns represent speeds
 library(gplots)
 library(RColorBrewer)
-my_palette <- colorRampPalette(c("green","black","white","blue","black"))(n = 1000)
+YlOrBr <- c("#FFF7FB","#FFF7FB","#FFF7FB","#FFF7FB","#FFF7FB","#FFF7FB",
+  "#FFFFD9","#41B6C3", "#1D91C0", "#225ea8", "#253494", "#081D58","#000000")
+my_palette <- colorRampPalette(YlOrBr, space = "Lab")(n = 1000)
 heatmap.2(H.mat, density.info = "none", trace = "none", col = my_palette, symkey = FALSE)
 
 
@@ -43,7 +45,7 @@ for(i in 1:length(files)){
 }
 
 # attach file names for rows
-rownames(H.mat2) <- sub(".*?20120912_(.*?)c.*", "\\1", files)
+rownames(H.mat2) <- sub(".*?20120912_(.*?).c.*", "\\1", files)
 
 row_distance = dist(H.mat2, method = "manhattan")
 row_cluster = hclust(row_distance, method = "ward.D")
@@ -78,7 +80,7 @@ heatmap.2(depth_ordered, density.info = "none",
           scale = "row", col = colorRampPalette(brewer.pal(9, "YlGnBu"))(256), 
           cexRow = 1, cexCol = 2, 
           srtCol = 0, # rotate column labels
-          rowsep=c(3,8,9,15), # add row separation for major clusters
+          rowsep = c(3,8,9,15), sepwidth = c(0.1,0.1), # add row separation for major clusters
           symkey = FALSE,symm = FALSE, 
           lmat = lmat, key.par=list(mar=c(3.5,0,9.5,11)),
           margins = c(3,10))
@@ -91,7 +93,7 @@ heatmap.2(depth_ordered, density.info = "none",
           col = my_palette, 
           cexRow = 1, cexCol = 2, 
           symkey = FALSE,symm = FALSE,
-          rowsep=c(3,8,9,15), # add row separation for major clusters
+          rowsep=c(3,8,9,15), sepwidth = c(0.1, 0.1), # add row separation for major clusters
           srtCol = 0, # rotate column labels
           lmat = lmat, key.par=list(mar=c(3.5,0,9.5,11)),
           margins = c(3,10))
