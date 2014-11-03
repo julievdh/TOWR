@@ -64,7 +64,7 @@ par(mar=c(0,0,0,8))
 par(oma=c(0,0,0,8))
 heatmap.2(H.mat, density.info = "none", trace = "none", 
           dendrogram = "none", Rowv = "FALSE", # don't add dendrograms, don't sort by row
-          col = colorRampPalette(brewer.pal(9, "YlGnBu"))(256), 
+          col = colorRampPalette(brewer.pal(9, "RdBu"))(256), 
           rowsep=seq(0, 24, 3), # separate rows by gear set
           cexRow = 0.8, srtCol = 0, # rotate column labels
           labCol = c("0 m","3 m", "6 m"), adjCol = c(0.5,1),
