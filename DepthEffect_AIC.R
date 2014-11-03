@@ -1,17 +1,24 @@
-# load libraries
+## Determine which tows have significant effect of depth on drag, using AIC approach
+
+## set directory
+setwd("~/Documents/R/TOWR")
+
+
+## load libraries
 library(AICcmodavg)
 
-# find all filenames
-files <- list.files(pattern = ".csv")
+## find all filenames
+files <- list.files(path = "./TOW_data", pattern = ".csv")
 
-# initialize AIC storage vectors
+## initialize AIC storage vectors
 # AICc_1 <- numeric(length(files))
 # AICc_2 <- numeric(length(files))
 delAIC <-numeric(length(files))
 
-# for each file
+## for each file
 for(i in 1:length(files)){
-  # load data
+  ## load data
+  setwd("~/Documents/R/TOWR/TOW_data")
 dat <- read.csv(files[i],header=FALSE)
 
 mndepth <- dat$V1
@@ -19,9 +26,9 @@ mnspeed <- dat$V2
 mndragN <- dat$V3
 speedcat <- c(1,2,3,1,2,3,1,2,3)
 
-# plot
-par(new = T)
-plot(mndepth,mndragN, pch=19,col = speedcat, xlim=c(0.0,12.0), ylim=c(0.0,700))
+## plot
+# par(new = T)
+# plot(mndepth,mndragN, pch=19,col = speedcat, xlim=c(0.0,12.0), ylim=c(0.0,700))
 
 # fit model: drag ~ speed^2
 m1 <-lm(mndragN ~ mnspeed^2)
@@ -40,6 +47,7 @@ summary(m2)
 delAIC[[i]] <- AIC(m2) - AIC(m1)
 }
 
+
 # find where delta AIC < -2 
 # this will be where model 2 is preferred (where depth should be included)
 # Arnold, T. W. 2010. Uninformative parameters and model selection using Akaike’s Information Criterion. Journal of Wildlife Management 74:1175–1178. 
@@ -54,6 +62,7 @@ dpth <- files[delAIC< -2]
 par(mfrow = c(2,4))
 
 for(i in 1:length(dpth)){
+setwd("~/Documents/R/TOWR/TOW_data")
 dat <- read.csv(dpth[i],header=FALSE)
 
 mndepth <- dat$V1
@@ -61,8 +70,11 @@ mnspeed <- dat$V2
 mndragN <- dat$V3
 speedcat <- c(1,2,3,1,2,3,1,2,3)
 
-# plot
-# plot(mndepth,mndragN, pch=19,col = speedcat, main = dpth[i])
-# plot(mnspeed,mndragN, pch=19, col = mndepth+1, main = dpth[i])
+## plot mean depth and mean drag, coloured by speed
+plot(mndepth,mndragN, pch=19,col = speedcat, main = dpth[i])
+
+## plot mean speed and mean drag, coloured by depth
+#plot(mnspeed,mndragN, pch=19, col = mndepth+1, main = dpth[i])
 
 }
+
