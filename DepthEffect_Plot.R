@@ -4,6 +4,11 @@
 setwd("~/Documents/R/TOWR/")
 source("DepthEffect_AIC.R")
 
+# REORDER DPTH TO BE THE SAME AS IN CLUSTER DIAGRAM
+dpth <- c("20120912_J011409.csv","20120912_J120305.csv","20120912_telembuoy.csv",
+          "20120912_8mm200m.csv","20120912_J072498.csv","20120912_8mm100m.csv",
+          "20120912_J070602.csv","20120912_J020709.csv")
+
 ## Create the data
 ## the matrix containing data for Figure 02a
 H.mat <- matrix(NA, nrow=8*3, ncol=3)
