@@ -80,7 +80,7 @@ heatmap.2(depth_ordered, density.info = "none",
           scale = "row", col = colorRampPalette(brewer.pal(9, "YlGnBu"))(256), 
           cexRow = 1, cexCol = 2, 
           srtCol = 0, # rotate column labels
-          rowsep = c(3,8,9,15), sepwidth = c(0.1,0.1), # add row separation for major clusters
+          rowsep = c(3,8,9,16), sepwidth = c(0.1,0.1), # add row separation for major clusters
           symkey = FALSE,symm = FALSE, 
           lmat = lmat, key.par=list(mar=c(3.5,0,9.5,11)),
           margins = c(3,10))
@@ -93,7 +93,7 @@ heatmap.2(depth_ordered, density.info = "none",
           col = my_palette, 
           cexRow = 1, cexCol = 2, 
           symkey = FALSE,symm = FALSE,
-          rowsep=c(3,8,9,15), sepwidth = c(0.1, 0.1), # add row separation for major clusters
+          rowsep=c(3,8,9,16), sepwidth = c(0.1, 0.1), # add row separation for major clusters
           srtCol = 0, # rotate column labels
           lmat = lmat, key.par=list(mar=c(3.5,0,9.5,11)),
           margins = c(3,10))
