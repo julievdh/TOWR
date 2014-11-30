@@ -1,52 +1,47 @@
 ## Determine which tows have significant effect of depth on drag, using AIC approach
 
 ## set directory
-setwd("~/Documents/R/TOWR")
-
+setwd("~/Documents/R/TOWR/TOW_data")
 
 ## load libraries
 library(AICcmodavg)
+library(R.matlab)
 
-## find all filenames
-files <- list.files(path = "./TOW_data", pattern = ".csv")
+## load gear data saved from MATLAB
+data <- readMat('GearData.mat')
+
 
 ## initialize AIC storage vectors
-# AICc_1 <- numeric(length(files))
-# AICc_2 <- numeric(length(files))
-delAIC <-numeric(length(files))
+best <-numeric(21)
+m3p <-numeric(21)
 
 ## for each file
-for(i in 1:length(files)){
-  ## load data
-  setwd("~/Documents/R/TOWR/TOW_data")
-dat <- read.csv(files[i],header=FALSE)
-
-mndepth <- dat$V1
-mnspeed <- dat$V2
-mndragN <- dat$V3
-speedcat <- c(1,2,3,1,2,3,1,2,3)
+for(i in 1:21) {
 
 ## plot
-# par(new = T)
-# plot(mndepth,mndragN, pch=19,col = speedcat, xlim=c(0.0,12.0), ylim=c(0.0,700))
+plot(log(data$Cd[,i]) ~ data$Re[,i])
 
 # fit model: drag ~ speed^2
-m1 <-lm(mndragN ~ mnspeed^2)
+m1 <-lm(log(data$Cd[,i]) ~ data$Re[,i])
 summary(m1)
 # plot(m1)
 
 # fit model: drag ~ speed^2 + depth
-m2 <-lm(mndragN ~ mnspeed^2 + mndepth)
+m2 <-lm(data$Cd[,i] ~ data$Re[,i] + data$depth[,i])
 summary(m2)
 # plot(m2)
 
-# calculate AIC
-#AICc_1[[i]] <- AICc(m1)
-#AICc_2[[i]] <- AICc(m2)
-# delAICc[[i]] <- AICc(m2) - AICc(m1)
-delAIC[[i]] <- AIC(m2) - AIC(m1)
+m3 <- lm(data$Cd[,i] ~ data$depth[,i])
+m3p[i] <- anova(m3)$'Pr(>F)'[1]
+
+# calculate del AIC
+x <- c(AIC(m1), AIC(m2), AIC(m3)) # store AIC values in a vector
+delta <- x - min(x)               # calculate AIC differences
+best[i] <- match(0,delta)        # find which model is preferred (delta = 0)
 }
 
+model2 <- which(best %in% c(2))
+model3 <- which(best %in% c(3))
 
 # find where delta AIC < -2 
 # this will be where model 2 is preferred (where depth should be included)
