@@ -100,28 +100,64 @@ heatmap.2(speed_ordered, density.info = "none",
           lhei = c(0.25,0.95), margins = c(4,10))
 dev.off()
 
-# What are the counts in different cluster numbers?
-counts = sapply(2:7,function(ncl)table(cutree(row_cluster,ncl)))
-# Plot with specified number of clusters
-op <- par(mar = c(1,4,4,1), mfrow = c(1,1))
-plot(row_cluster, cex = 0.6, main = "Ward showing 5 clusters")
-rect.hclust(row_cluster, k = 5)
+# # What are the counts in different cluster numbers?
+# counts = sapply(2:7,function(ncl)table(cutree(row_cluster,ncl)))
+# # Plot with specified number of clusters
+# op <- par(mar = c(1,4,4,1), mfrow = c(1,1))
+# plot(row_cluster, cex = 0.6, main = "Ward showing 5 clusters")
+# rect.hclust(row_cluster, k = 5)
+# 
+# # compute hierarchical clustering using different linkage types
+# pr.hc.s <- hclust(row_distance, method = 'single')
+# pr.hc.c <- hclust(row_distance, method = 'complete')
+# pr.hc.a <- hclust(row_distance, method = 'average')
+# pr.hc.w <- hclust(row_distance, method = 'ward.D')
+# 
+# # plot them
+# frame()
+# op <- par(mar = c(0,4,4,2), mfrow = c(2,2))
+# 
+# plot(pr.hc.s, labels = FALSE, main = "Single", xlab = "")
+# rect.hclust(pr.hc.s, k = 5)
+# plot(pr.hc.c, labels = FALSE, main = "Complete", xlab = "")
+# rect.hclust(pr.hc.c, k = 5)
+# plot(pr.hc.a, labels = FALSE, main = "Average", xlab = "")
+# rect.hclust(pr.hc.a, k = 5)
+# plot(pr.hc.w, labels = FALSE, main = "Ward", xlab = "")
+# rect.hclust(pr.hc.w, k = 5)
 
-# compute hierarchical clustering using different linkage types
-pr.hc.s <- hclust(row_distance, method = 'single')
-pr.hc.c <- hclust(row_distance, method = 'complete')
-pr.hc.a <- hclust(row_distance, method = 'average')
-pr.hc.w <- hclust(row_distance, method = 'ward.D')
 
-# plot them
-frame()
-op <- par(mar = c(0,4,4,2), mfrow = c(2,2))
+# Do K means clustering and hierarchical with 5 and see whether clusters are the same
+# set 5 clusters
+clusters.w = cutree(hclust(row_distance, method = 'ward.D'), k=5) 
 
-plot(pr.hc.s, labels = FALSE, main = "Single", xlab = "")
-rect.hclust(pr.hc.s, k = 7)
-plot(pr.hc.c, labels = FALSE, main = "Complete", xlab = "")
-rect.hclust(pr.hc.c, k = 7)
-plot(pr.hc.a, labels = FALSE, main = "Average", xlab = "")
-rect.hclust(pr.hc.a, k = 7)
-plot(pr.hc.w, labels = FALSE, main = "Ward", xlab = "")
-rect.hclust(pr.hc.w, k = 7)
+Cd.km <- kmeans(df$Cd, centers = k, nstart = 100)
+clust.centers <- Cd.km$centers
+
+
+
+
+
+pdf("Cd_Clusters.pdf",width = 10,height = 8)
+#Look at all clusters
+op <- par(mfrow = c(2, 3))
+for(clusterNum in 1:5) {
+  
+  # Set up the axes without plotting; ylim set based on trial run.
+  plot(clust.centers[clusterNum,1:9], ylim = c(0,0.4),
+       ylab = " ",
+       axes = F, ) 
+  axis(2)
+  axis(1, 1:9, c(colnames(clust.centers)[1:9]), cex.axis = 0.9)
+  
+  # Plot the expression of all the genes in the selected cluster in grey.
+  matlines(y = t(df$Cd[Cd.km$cluster == clusterNum, 1:9]),
+           col = 'grey') 
+  
+  # Add the cluster center. This is last so it isn't underneath the members
+  points(clust.centers[clusterNum, 1:9] , type = 'l') 
+  
+  # Optional: points to show development stages.
+  points(clust.centers[clusterNum, 1:9],  pch = 20)
+} 
+dev.off()
