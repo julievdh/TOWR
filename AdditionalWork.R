@@ -31,24 +31,6 @@ require(beanplot)
 # set directory for pdf
 setwd("~/Documents/R/TOWR/AnalysisFigures") # set directory to figures
 
-
-pdf("WorkDiff_beanplot_basic.pdf",width = 5,height = 5)
-op <- par
-op <- par(mfrow = c(2,1),
-          oma = c(3,0,0,0) + 0.1,
-         mar = c(3,0,2,0) + 0.1)
-
-beanplot(diff_min_basic ~ fate,ll = 0.35, log="y",horizontal = TRUE, names = c("",""),
-         side = "both" , xlab="Minimum Additional Work (J)", 
-         col = list("white", c("grey", "black")), beanlinewd = 1.5)
-
-beanplot(diff_max_basic ~ fate,ll = 0.35, log="y",horizontal = TRUE, names = c("",""),
-         side = "both" , xlab="Minimum Additional Work (J)", 
-         col = list("white", c("grey", "black")), beanlinewd = 1.5)
-
-
-dev.off()
-
 pdf("WorkDiff_beanplot_detailed.pdf",width = 5,height = 5)
 op <- par
 op <- par(mfrow = c(1,2),
