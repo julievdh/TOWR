@@ -60,6 +60,7 @@ axis(2,at=c(1E8,1E9,1E10,1E11,1E12,1E13),labels = c(expression(paste("10"^"8")),
 # text(1,1E13,'B',cex = 1.2)
 dev.off()
 
+# DO WITH COLOURS FOR LIVE AND DEAD
 pdf("WorkDiff_beanplot_detailed2.pdf",width = 5,height = 5)
 op <- par
 op <- par(mfrow = c(1,2),
@@ -67,17 +68,36 @@ op <- par(mfrow = c(1,2),
           mar = c(2,4,0,0) + 0.1)
 
 beanplot(diff_min_detailed[fate==0],ll = 1, col = c(0,"steelblue","steelblue","steelblue"), what=c(1,0,1,1),
-         side = "both",method = "stack", add=FALSE, log = "y")
+         side = "both",method = "stack", add=FALSE, log = "y",beanlinewd = 2,
+         ylab="Additional Work (J)",axes = FALSE, ylim = c(1E7,1E13))
 beanplot(diff_min_detailed[fate==1],ll = 1, col = c(0,"firebrick","firebrick","firebrick"), what=c(1,0,1,1),
-         side = "both",method = "stack", add=TRUE, log = "y")
+         side = "both",method = "stack", add=TRUE, log = "y",beanlinewd = 2,
+         ylab="Additional Work (J)",axes = FALSE, ylim = c(1E7,1E13))
 beanplot(diff_min_detailed,ll = 1, col = c("#00000000","#FFFFFFFF","#FFFFFFFF","#FFFFFFFF"), what=c(0,1,0,0),
-         side = "both", method = "stack", add=TRUE, log = "y")
+         side = "both", method = "stack", add=TRUE, log = "y",
+         ylab="Additional Work (J)",axes = FALSE, ylim = c(1E7,1E13))
+# add axis information
+axis(2,at=c(1E7,1E8,1E9,1E10,1E11,1E12),labels = c(expression(paste("10"^"7")),
+                                                   expression(paste("10"^"8")),
+                                                   expression(paste("10"^"9")),
+                                                   expression(paste("10"^"10")),
+                                                   expression(paste("10"^"11")),
+                                                   expression(paste("10"^"12"))))
 
 beanplot(diff_max_detailed[fate==0],ll = 1, col = c(0,"steelblue","steelblue","steelblue"), what=c(1,0,1,1),
-         side = "both", method = "stack", add=FALSE, log = "y")
+         side = "both", method = "stack", add=FALSE, log = "y",beanlinewd = 2,
+         axes = FALSE, ylim = c(1E7,1E13))
 beanplot(diff_max_detailed[fate==1],ll = 1, col = c(0,"firebrick","firebrick","firebrick"), what=c(1,0,1,1),
-         side = "both", method = "stack", add=TRUE, log = "y")
+         side = "both", method = "stack", add=TRUE, log = "y",beanlinewd = 2,
+         axes = FALSE, ylim = c(1E7,1E13))
 beanplot(diff_max_detailed,ll = 1, col = c("#00000000","#FFFFFFFF","#FFFFFFFF","#FFFFFFFF"), what=c(0,1,0,0),
-         side = "both", method = "stack", add=TRUE, log = "y")
+         side = "both", method = "stack", add=TRUE, log = "y",axes = FALSE, ylim = c(1E7,1E13))
+# add axis information
+axis(2,at=c(1E8,1E9,1E10,1E11,1E12,1E13),labels = c(expression(paste("10"^"8")),
+                                                   expression(paste("10"^"9")),
+                                                   expression(paste("10"^"10")),
+                                                   expression(paste("10"^"11")),
+                                                   expression(paste("10"^"12")),
+                                                   expression(paste("10"^"13"))))
 
-dev.off()
+     dev.off()
