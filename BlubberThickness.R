@@ -38,7 +38,7 @@ op <- par
 
 pdf("BlubberThickness_beanplot.pdf",width = 5,height = 5)
 
-beanplot(Dorsal[Stage > 0] ~ Ent[Stage > 0] + Stage[Stage > 0],ll = 0.20,
+beanplot(Dorsal[Stage > 0] ~ Ent[Stage > 0] + Stage[Stage > 0],ll = 0.20, bw = "nrd0",
          side = "both" , ylab="Dorsal Blubber Thickness (cm)", names = c("Juveniles","Adults"),
          col = list("white", c("grey", "black")), beanlinewd = 1.5)
 dev.off()
@@ -46,7 +46,7 @@ par(new)
 
 pdf("BlubberThickness_beanplot2.pdf",width = 5,height = 5)
 
-beanplot(Dorsal[Stage > 0] ~ Ent[Stage > 0],ll = 0.07,
+beanplot(Dorsal[Stage > 0] ~ Ent[Stage > 0],ll = 0.07, bw = "nrd0",
          side = "both" , ylab="Dorsal Blubber Thickness (cm)", 
          col = list("white", c("grey", "black")), beanlinewd = 1.5)
 

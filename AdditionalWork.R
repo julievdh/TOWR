@@ -5,12 +5,14 @@
 
 # Based on detailed timeline
 # UNITS ARE JOULES
-diff_max_detailed <- c(6.2547E+09,2.4313E+10,2.7920E+11,2.0486E+10,2.0779E+09,1.2923E+10,
-                       2.5645E+10,6.9492E+10,2.7005E+10,4.0779E+10,9.9170E+09,1.6439E+10,
-                       3.2452E+10,1.5288E+11,4.8754E+11)
-diff_min_detailed<- c(1.3597E+08,2.2977E+10,7.6473E+09,1.2036E+09,2.8166E+08,2.8219E+09,
-                      4.9594E+09,1.0498E+09,2.6152E+10,3.2797E+09,2.8529E+09,4.7788E+09,
-                      1.2678E+09,2.7832E+10,1.5835E+10)
+# min_Wa and max_Wa from PowerIncrease.m
+diff_min_detailed <- c(231120000,27113184000.0000,11104128000.0000,1772928000.00000,442368000,
+                       4250016000.00000,7634304000.00000,976320000,30405888000.0000,13969584000.0000,
+                       3978720000.00000,6069600000.00000,1763424000.00000,38754720000.0000,13106880000.0000)
+diff_max_detailed<- c(10631520000.0000,29206656000.0000,533246112000.000,22664448000.0000,
+                      2540160000.00000,19309536000.0000,10924416000.0000,59597856000.0000,
+                      31478976000.0000,173087280000.000,14105664000.0000,20187360000.0000,
+                      41961888000.0000,209667744000.000,395537472000.000)
 
 fate <- c(0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1) #  0 = alive, 1 = dead
 
@@ -29,7 +31,7 @@ op <- par(mfrow = c(1,2),
           oma = c(0,0,0,0) + 0.1,
           mar = c(2,4,0,0) + 0.1)
 
-beanplot(diff_min_detailed ~ fate,ll = 0.25, log="y", method = "stack",
+beanplot(diff_min_detailed ~ fate,ll = 0.25, log="y", method = "stack", bw = "nrd0",
          side = "both" , ylab="Additional Work (J)",axes = FALSE, ylim = c(1E7,1E13),
          col = list("white", c("grey", "black")), beanlinewd = 1.75)
 # text(1,1E13,'A',cex = 1.2)
@@ -40,7 +42,7 @@ axis(2,at=c(1E7,1E8,1E9,1E10,1E11,1E12),labels = c(expression(paste("10"^"7")),
                                               expression(paste("10"^"11")),
                                               expression(paste("10"^"12"))))
 
-beanplot(diff_max_detailed ~ fate,ll = 0.25, log="y",names = c("",""),
+beanplot(diff_max_detailed ~ fate,ll = 0.25, log="y",names = c("",""), bw = "nrd0",
          side = "both", axes = FALSE, ylim = c(1E7,1E13),method = "stack",
          col = list("white", c("grey", "black")), beanlinewd = 1.75)
 axis(2,at=c(1E8,1E9,1E10,1E11,1E12,1E13),labels = c(expression(paste("10"^"8")),
