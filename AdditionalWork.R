@@ -1,15 +1,7 @@
 # Energy Consumption Differences
 
 # maximum difference in energy consumption
-# From calculations 7 April 2015
-# Based on basic timeline
-# UNITS ARE JOULES
-diff_max_basic <- c(6.2547E+09,2.7669E+10,3.7636E+11,2.1070E+10,2.0811E+09,1.4285E+10,
-              2.7023E+10,7.1041E+10,2.7254E+10,1.9780E+11,9.5343E+09,1.6175E+10,
-              3.2701E+10,1.4899E+11,4.0010E+11)
-diff_min_basic <- c(1.3697E+08,2.4258E+10,7.6482E+09,7.1930E+08,1.6359E+08,2.7426E+09,
-              4.6296E+09,7.3037E+08,2.6152E+10,1.5444E+10,2.4332E+09,4.4259E+09,1.2287E+09,
-              2.6544E+10,1.2023E+10)
+# From calculations 15 Oct 2015
 
 # Based on detailed timeline
 # UNITS ARE JOULES
