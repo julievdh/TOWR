@@ -33,7 +33,7 @@ op <- par(mfrow = c(1,2),
 
 beanplot(diff_min_detailed ~ fate,ll = 0.25, log="y", method = "stack", bw = "nrd0",
          side = "both" , ylab="Additional Work (J)",axes = FALSE, ylim = c(1E7,1E13),
-         col = list("white", c("grey", "black")), beanlinewd = 1.75)
+         col = list("white", c("red", "black")), beanlinewd = 1.75)
 # text(1,1E13,'A',cex = 1.2)
 axis(2,at=c(1E7,1E8,1E9,1E10,1E11,1E12),labels = c(expression(paste("10"^"7")),
                                               expression(paste("10"^"8")),
@@ -44,7 +44,7 @@ axis(2,at=c(1E7,1E8,1E9,1E10,1E11,1E12),labels = c(expression(paste("10"^"7")),
 
 beanplot(diff_max_detailed ~ fate,ll = 0.25, log="y",names = c("",""), bw = "nrd0",
          side = "both", axes = FALSE, ylim = c(1E7,1E13),method = "stack",
-         col = list("white", c("grey", "black")), beanlinewd = 1.75)
+         col = list("white", c("red", "black")), beanlinewd = 1.75)
 axis(2,at=c(1E8,1E9,1E10,1E11,1E12,1E13),labels = c(expression(paste("10"^"8")),
                                               expression(paste("10"^"9")),
                                               expression(paste("10"^"10")),
