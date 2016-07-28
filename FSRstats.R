@@ -4,7 +4,7 @@ library(dae)
 
 ## set directory and load data
 setwd("~/Documents/MATLAB/Eg4057")
-dat <- readMat("FSRvars.mat") ## Data updated and resaved Feb 17 2016
+dat <- readMat("FSRvars_v6.mat") ## Data updated and resaved Feb 17 2016 ## resaved as v6 July 23 2016
 setwd("~/Documents/R")
 
 # set up factors
